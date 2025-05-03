@@ -1,5 +1,5 @@
 import './App.css'
-import BribeReport from './components/ReportForm/BribeReport'
+import BribeReport from './components/BribeReport'
 
 function App() {
 

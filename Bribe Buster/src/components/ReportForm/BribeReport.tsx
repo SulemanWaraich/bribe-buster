@@ -1,0 +1,157 @@
+import React, { useState } from 'react';
+import { SafetyOutlined, MoneyCollectOutlined, EnvironmentOutlined } from '@ant-design/icons';
+
+type Department = 
+  | 'Traffic Police' 
+  | 'Electricity Department'
+  | 'Water & Sanitation'
+  | 'Tax Office' 
+  | 'Land Registry'
+  | 'Other';
+
+interface BribeReport {
+  department: Department;
+  amount: number;
+  location: string;
+  submitted: boolean;
+}
+
+const departments: Department[] = [
+  'Traffic Police', 
+  'Electricity Department',
+  'Water & Sanitation',
+  'Tax Office',
+  'Land Registry',
+  'Other'
+];
+
+const BribeForm = () => {
+  const [formData, setFormData] = useState<BribeReport>({
+    department: 'Traffic Police',
+    amount: 0,
+    location: '',
+    submitted: false
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const reports: BribeReport[] = JSON.parse(localStorage.getItem('reports') || '[]');
+    localStorage.setItem('reports', JSON.stringify([...reports, formData]));
+    setFormData({...formData, submitted: true});
+    setTimeout(() => setFormData(prev => ({...prev, submitted: false})), 2000);
+  };
+
+  const handleDepartmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setFormData({
+      ...formData,
+      department: e.target.value as Department
+    });
+  };
+
+  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      amount: parseInt(e.target.value)
+    });
+  };
+
+  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      location: e.target.value
+    });
+  };
+
+  return (
+    <div className="max-w-md mx-auto bg-gray-900 text-gray-100 rounded-xl shadow-2xl overflow-hidden p-6">
+      {/* Header */}
+      <div className="text-center mb-6">
+        <SafetyOutlined className="text-green-500 text-3xl mb-2 mx-auto" />
+        <h3 className="text-xl font-bold">Report Corruption Anonymously</h3>
+        <p className="text-gray-400">Your identity remains protected</p>
+      </div>
+
+      {formData.submitted ? (
+        <div className="bg-green-900 text-green-100 p-4 rounded-lg mb-6 flex items-start">
+          <span className="mr-2">✓</span>
+          <div>
+            <p className="font-bold">Report Submitted!</p>
+            <p className="text-sm">Thank you for fighting corruption.</p>
+          </div>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Department Select */}
+          <div>
+            <label className="block text-gray-400 mb-2">
+              <EnvironmentOutlined className="mr-2" />
+              Where did this happen?
+            </label>
+            <select
+              value={formData.department}
+              onChange={handleDepartmentChange}
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
+            >
+              {departments.map(dept => (
+                <option key={dept} value={dept}>{dept}</option>
+              ))}
+            </select>
+          </div>
+
+          {/* Amount Slider */}
+          <div>
+            <label className="block text-gray-400 mb-2">
+              <MoneyCollectOutlined className="mr-2" />
+              Amount Demanded (PKR)
+            </label>
+            <div className="bg-gray-800 p-4 rounded-lg">
+              <input
+                type="range"
+                min="0"
+                max="20000"
+                step="500"
+                value={formData.amount}
+                onChange={handleAmountChange}
+                className="w-full accent-red-500"
+              />
+              <div className="text-center text-red-500 font-bold text-lg mt-2">
+                {formData.amount.toLocaleString()} PKR
+              </div>
+            </div>
+          </div>
+
+          {/* Location Input */}
+          <div>
+            <label className="block text-gray-400 mb-2">
+              <EnvironmentOutlined className="mr-2" />
+              Location (Optional)
+            </label>
+            <input
+              type="text"
+              placeholder="e.g. Karachi, DHA Phase 5"
+              value={formData.location}
+              onChange={handleLocationChange}
+              className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
+            />
+          </div>
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            disabled={!formData.department}
+            className={`w-full py-3 px-4 rounded-lg font-bold ${formData.department ? 'bg-red-600 hover:bg-red-700' : 'bg-gray-700 cursor-not-allowed'} transition-colors`}
+          >
+            Submit Anonymously
+          </button>
+        </form>
+      )}
+
+      {/* Privacy Note */}
+      <p className="text-center text-gray-500 text-xs mt-6">
+        No personal data is collected or stored.
+      </p>
+    </div>
+  );
+};
+
+export default BribeForm;

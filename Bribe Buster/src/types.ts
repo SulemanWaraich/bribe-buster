@@ -6,11 +6,16 @@ export type Department =
 | 'Land Registry'
 | 'Other';
 
+export interface Location {
+  lat: number;
+  lng: number;
+}
+
 export interface BribeReport {
-department: Department;
-amount: number;
-location: string;
-submitted: boolean;
-reportId?: string;
-timestamp?: Date;
+  department: Department;
+  amount: number;
+  location: Location | null; // Made optional
+  submitted: boolean;
+  reportId?: string;
+  timestamp?: Date | string; // Flexible date type
 }

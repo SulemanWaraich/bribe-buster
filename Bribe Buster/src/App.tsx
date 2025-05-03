@@ -1,13 +1,13 @@
 import './App.css'
-// import BribeReport from './components/BribeReport'
-import HeatMap from './components/HeatMap'
+import BribeReport from './components/BribeReport'
+// import HeatMap from './components/HeatMap'
 
 function App() {
 
   return (
     <>
-      {/* <BribeReport /> */}
-      <HeatMap />
+      <BribeReport />
+      {/* <HeatMap /> */}
     </>
   )
 }

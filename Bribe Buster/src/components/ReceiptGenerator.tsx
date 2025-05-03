@@ -58,13 +58,15 @@ const ReceiptPDF = ({ report }: { report: BribeReport }) => (
       {report.location && (
         <View style={styles.row}>
           <Text style={styles.label}>Location:</Text>
-          <Text>{report.location}</Text>
+          <Text>{report.location && `Lat: ${report.location.lat}, Lng: ${report.location.lng}`}</Text>
         </View>
       )}
       
       <View style={styles.row}>
         <Text style={styles.label}>Date:</Text>
-        <Text>{report.timestamp?.toLocaleDateString()}</Text>
+        <Text>{report.timestamp 
+        ? new Date(report.timestamp).toLocaleDateString() 
+        : 'Unknown date'}</Text>
       </View>
       
       <View style={styles.divider} />
@@ -109,7 +111,7 @@ const ReceiptGenerator = ({ report }: { report: BribeReport }) => {
         {report.location && (
           <div className="flex justify-between mb-2">
             <span className="font-bold">Location:</span>
-            <span>{report.location}</span>
+            <span>{report.location && `Lat: ${report.location.lat}, Lng: ${report.location.lng}`}</span>
           </div>
         )}
         <div className="flex justify-between">

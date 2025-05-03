@@ -1,29 +1,35 @@
-import React, { useState } from 'react';
-import { SafetyOutlined, MoneyCollectOutlined, EnvironmentOutlined } from '@ant-design/icons';
-import { Department, BribeReport } from '../types';
-import ReceiptGenerator from './ReceiptGenerator';
+import React, { useState } from "react";
+import {
+  SafetyOutlined,
+  MoneyCollectOutlined,
+  EnvironmentOutlined,
+} from "@ant-design/icons";
+import { Department, BribeReport } from "../types";
+import ReceiptGenerator from "./ReceiptGenerator";
 
 const departments: Department[] = [
-  'Traffic Police', 
-  'Electricity Department',
-  'Water & Sanitation',
-  'Tax Office',
-  'Land Registry',
-  'Other'
+  "Traffic Police",
+  "Electricity Department",
+  "Water & Sanitation",
+  "Tax Office",
+  "Land Registry",
+  "Other",
 ];
 
 const BribeForm = () => {
+  const [locationInput, setLocationInput] = useState("");
+
   const [formData, setFormData] = useState<BribeReport>({
-    department: 'Traffic Police',
+    department: "Traffic Police",
     amount: 0,
-    location: '',
-    submitted: false
+    location: null,
+    submitted: false,
   });
 
   const [showReceipt, setShowReceipt] = useState(false);
 
   const generateReportId = () => {
-    return 'BR-' + Math.random().toString(36).substring(2, 9).toUpperCase();
+    return "BR-" + Math.random().toString(36).substring(2, 9).toUpperCase();
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -32,22 +38,25 @@ const BribeForm = () => {
       ...formData,
       reportId: generateReportId(),
       timestamp: new Date(),
-      submitted: true
+      submitted: true,
     };
     setFormData(reportWithId);
     setShowReceipt(true);
-    
+
     // Save to localStorage
-    const reports = JSON.parse(localStorage.getItem('bribeReports') || '[]');
-    localStorage.setItem('bribeReports', JSON.stringify([...reports, reportWithId]));
+    const reports = JSON.parse(localStorage.getItem("bribeReports") || "[]");
+    localStorage.setItem(
+      "bribeReports",
+      JSON.stringify([...reports, reportWithId])
+    );
   };
 
   const handleNewReport = () => {
     setFormData({
-      department: 'Traffic Police',
+      department: "Traffic Police",
       amount: 0,
-      location: '',
-      submitted: false
+      location: null,
+      submitted: false,
     });
     setShowReceipt(false);
   };
@@ -55,21 +64,32 @@ const BribeForm = () => {
   const handleDepartmentChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setFormData({
       ...formData,
-      department: e.target.value as Department
+      department: e.target.value as Department,
     });
   };
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      amount: parseInt(e.target.value)
+      amount: parseInt(e.target.value),
     });
   };
 
-  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleLocationChange = (address: string) => {
+    // Mock geocoding - replace with real API call
+    setLocationInput(address);
+
+    if (!address) {
+      setFormData({ ...formData, location: null });
+      return;
+    }
+
     setFormData({
       ...formData,
-      location: e.target.value
+      location: {
+        lat: 24.8607 + Math.random() * 0.1,
+        lng: 67.0011 + Math.random() * 0.1,
+      },
     });
   };
 
@@ -115,8 +135,10 @@ const BribeForm = () => {
                   onChange={handleDepartmentChange}
                   className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
                 >
-                  {departments.map(dept => (
-                    <option key={dept} value={dept}>{dept}</option>
+                  {departments.map((dept) => (
+                    <option key={dept} value={dept}>
+                      {dept}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -145,24 +167,30 @@ const BribeForm = () => {
 
               {/* Location Input */}
               <div>
-                <label className="block text-gray-400 mb-2">
-                  <EnvironmentOutlined className="mr-2" />
-                  Location (Optional)
-                </label>
+                <label>Location</label>
                 <input
                   type="text"
-                  placeholder="e.g. Karachi, DHA Phase 5"
-                  value={formData.location}
-                  onChange={handleLocationChange}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 text-white focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                  value={locationInput}
+                  onChange={(e) => handleLocationChange(e.target.value)}
+                  placeholder="Enter address"
                 />
+                {formData.location && (
+                  <span className="text-xs">
+                    Mapped to: {formData.location.lat.toFixed(4)},{" "}
+                    {formData.location.lng.toFixed(4)}
+                  </span>
+                )}
               </div>
 
               {/* Submit Button */}
               <button
                 type="submit"
                 disabled={!formData.department}
-                className={`w-full py-3 px-4 rounded-lg font-bold ${formData.department ? 'bg-red-600 hover:bg-red-700' : 'bg-gray-700 cursor-not-allowed'} transition-colors`}
+                className={`w-full py-3 px-4 rounded-lg font-bold ${
+                  formData.department
+                    ? "bg-red-600 hover:bg-red-700"
+                    : "bg-gray-700 cursor-not-allowed"
+                } transition-colors`}
               >
                 Submit Anonymously
               </button>

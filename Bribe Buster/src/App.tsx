@@ -1,6 +1,7 @@
 import './App.css'
 import BribeReport from './components/BribeReport'
 // import HeatMap from './components/HeatMap'
+// import MapPage from './pages/MapPage'
 
 function App() {
 
@@ -8,6 +9,7 @@ function App() {
     <>
       <BribeReport />
       {/* <HeatMap /> */}
+      {/* <MapPage /> */}
     </>
   )
 }

@@ -53,7 +53,7 @@ const Heatmap = () => {
       ) : (
         <MapContainer 
           center={[30.3753, 69.3451]} // Pakistan coordinates
-          zoom={6}
+          zoom={5}
           style={{ height: '100%', width: '100%' }}
         >
           <TileLayer
@@ -71,7 +71,7 @@ const Heatmap = () => {
                   color: getColor(report.amount),
                   fillColor: getColor(report.amount),
                   fillOpacity: 0.6,
-                  weight: 1
+                  weight: 3
                 }}
               >
                 <Popup>

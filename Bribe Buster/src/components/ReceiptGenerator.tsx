@@ -82,11 +82,12 @@ const ReceiptPDF = ({ report }: { report: BribeReport }) => (
 
 
 const ReceiptGenerator = ({ report }: { report: BribeReport }) => {
+
   const handleShare = () => {
-    const text = `I reported a bribe of ${report.amount} PKR to ${report.department} via @BribeBusterApp. #EndCorruption`;
-    const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
-  };
+  const text = "I reported corruption via BribeBusterApp";
+  const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(text)}`;
+  window.open(url, '_blank', 'width=600,height=400');
+};
 
   return (
     <div className="bg-gray-800 p-6 rounded-lg">

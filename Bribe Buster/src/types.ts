@@ -19,3 +19,7 @@ export interface BribeReport {
   reportId?: string;
   timestamp?: Date | string; // Flexible date type
 }
+
+export interface BribeFormProps {
+  onSuccess?: (report: BribeReport) => void;
+}

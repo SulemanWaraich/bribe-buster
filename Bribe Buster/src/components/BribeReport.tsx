@@ -4,8 +4,9 @@ import {
   MoneyCollectOutlined,
   EnvironmentOutlined,
 } from "@ant-design/icons";
-import { Department, BribeReport } from "../types";
+import { Department, BribeReport, BribeFormProps } from "../types";
 import ReceiptGenerator from "./ReceiptGenerator";
+
 
 const departments: Department[] = [
   "Traffic Police",
@@ -16,7 +17,7 @@ const departments: Department[] = [
   "Other",
 ];
 
-const BribeForm = () => {
+const BribeForm = ({onSuccess}: BribeFormProps) => {
   const [locationInput, setLocationInput] = useState("");
 
   const [formData, setFormData] = useState<BribeReport>({
@@ -41,14 +42,15 @@ const BribeForm = () => {
       submitted: true,
     };
     setFormData(reportWithId);
-    setShowReceipt(true);
-
+    
     // Save to localStorage
     const reports = JSON.parse(localStorage.getItem("bribeReports") || "[]");
     localStorage.setItem(
       "bribeReports",
       JSON.stringify([...reports, reportWithId])
     );
+    onSuccess?.(reportWithId);
+    setShowReceipt(true);
   };
 
   const handleNewReport = () => {

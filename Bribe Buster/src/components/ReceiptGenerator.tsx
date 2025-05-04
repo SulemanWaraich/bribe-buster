@@ -92,8 +92,8 @@ const ReceiptGenerator = ({ report }: { report: BribeReport }) => {
 };
 
   return (
-    <div className="bg-gray-800 p-6 rounded-lg">
-      <h2 className="text-2xl font-bold text-center mb-4">Your Bribe Report Receipt</h2>
+    <div className="bg-gray-900 p-14 max-w-md mx-auto shadow-2xl rounded-xl overflow-hidden">
+      <h2 className="text-3xl font-bold text-center mb-4">Your Bribe Report Receipt</h2>
       
       <div className="bg-white text-black p-4 rounded mb-6">
         <div className="flex justify-between mb-2">
@@ -128,7 +128,7 @@ const ReceiptGenerator = ({ report }: { report: BribeReport }) => {
         >
           {({ loading }) => (
             <button 
-              className="flex items-center justify-center w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg"
+              className="flex items-center justify-center w-full py-2 px-4 bg-green-600 hover:bg-green-700 text-white rounded-lg"
               disabled={loading}
             >
               <DownloadOutlined className="mr-2" />
@@ -139,7 +139,7 @@ const ReceiptGenerator = ({ report }: { report: BribeReport }) => {
 
         <button 
           onClick={handleShare}
-          className="flex items-center justify-center w-full py-2 px-4 bg-blue-600 hover:bg-blue-700 text-white rounded-lg"
+          className="flex items-center justify-center w-full py-2 px-4 bg-red-600 hover:bg-red-700 text-white rounded-lg"
         >
           <ShareAltOutlined className="mr-2" />
           Share Anonymously

@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Department, BribeReport, BribeFormProps } from "../types";
 import ReceiptGenerator from "./ReceiptGenerator";
-
+import { useBribeContext } from "../context/BribeContext";
 
 const departments: Department[] = [
   "Traffic Police",
@@ -18,15 +18,14 @@ const departments: Department[] = [
 ];
 
 const BribeForm = ({onSuccess}: BribeFormProps) => {
+  const { addReport } = useBribeContext();
   const [locationInput, setLocationInput] = useState("");
-
   const [formData, setFormData] = useState<BribeReport>({
     department: "Traffic Police",
     amount: 0,
     location: null,
     submitted: false,
   });
-
   const [showReceipt, setShowReceipt] = useState(false);
 
   const generateReportId = () => {
@@ -42,13 +41,8 @@ const BribeForm = ({onSuccess}: BribeFormProps) => {
       submitted: true,
     };
     setFormData(reportWithId);
-    
-    // Save to localStorage
-    const reports = JSON.parse(localStorage.getItem("bribeReports") || "[]");
-    localStorage.setItem(
-      "bribeReports",
-      JSON.stringify([...reports, reportWithId])
-    );
+    addReport(reportWithId);
+
     onSuccess?.(reportWithId);
     setShowReceipt(true);
   };
@@ -177,7 +171,7 @@ const BribeForm = ({onSuccess}: BribeFormProps) => {
                   placeholder="Enter address"
                 />
                 {formData.location && (
-                  <span className="text-xs">
+                  <span className="text-sm block text-center ml-16">
                     Mapped to: {formData.location.lat.toFixed(4)},{" "}
                     {formData.location.lng.toFixed(4)}
                   </span>

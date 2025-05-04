@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { BribeReport } from '../types';
+// import { BribeReport } from '../types';
+import { useBribeContext } from '../context/BribeContext';
 
 L.Marker.prototype.options.icon = L.icon({
   iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
@@ -12,20 +13,13 @@ L.Marker.prototype.options.icon = L.icon({
 });
 
 const Heatmap = () => {
-  const [reports, setReports] = useState<BribeReport[]>([]);
   const [loading, setLoading] = useState(true);
+  const { reports, refreshReports } = useBribeContext();
 
   useEffect(() => {
-    const loadData = () => {
+    const loadData = async () => {
       try {
-        const storedReports = JSON.parse(localStorage.getItem('bribeReports') || '[]');
-        const validReports = storedReports.filter(
-          (report: BribeReport) =>
-            report.location &&
-            typeof report.location.lat === 'number' &&
-            typeof report.location.lng === 'number'
-        );
-        setReports(validReports);
+        await refreshReports();
       } catch (error) {
         console.error('Failed to load reports:', error);
       } finally {
@@ -34,8 +28,8 @@ const Heatmap = () => {
     };
 
     loadData();
-  }, []);
-
+  }, [refreshReports]);
+  
   const getColor = (amount: number) => (amount > 5000 ? '#ff0000' : '#3388ff');
   const getRadius = (amount: number) => Math.min(20, Math.max(5, amount / 1000));
 

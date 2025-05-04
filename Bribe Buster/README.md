@@ -3,9 +3,7 @@
 > A React-based transparency tool enabling citizens to safely report bribes while visualizing institutional corruption patterns.
 
 ## 🌍 Live Demo  
-[![Vercel](https://img.shields.io/badge/Vercel-Deployed-black?style=flat&logo=vercel)](https://bribebuster.vercel.app)  
-*Demo Credentials: test@bribebuster.org / SafePass123*  
-*(Replace with your actual deployment link)*
+[![Netlify](https://app.netlify.com/sites/dainty-travesseiro-31bbf4/deploys/6817acf596ae6de61c1a89e1)  
 
 ## 📌 The Transparency Crisis
 
@@ -106,7 +104,7 @@ graph TD
 
 ```bash
 # Clone with verification
-git clone https://github.com/transparency-international/bribebuster.git   --branch stable   --depth 1
+git clone https://github.com/SulemanWaraich/bribe-buster.git   --branch stable   --depth 1
 
 # Install with audit
 npm ci --audit
@@ -185,3 +183,13 @@ Add translations here:
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/transparency-international/bribebuster)
 
 ---
+
+## 🙏 Acknowledgements
+
+- Special thanks to **ChatGPT** (by OpenAI) for assisting in:
+  - Brainstorming feature ideas  
+  - Writing markdown documentation  
+  - Enhancing roadmap clarity
+
+- Inspired by civic-tech pioneers and anti-corruption initiatives worldwide  
+- Infographic assets adapted from [UN SDG](https://sdgs.un.org/goals) resources  

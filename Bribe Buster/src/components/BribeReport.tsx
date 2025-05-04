@@ -78,7 +78,6 @@ const BribeForm = ({onSuccess}: BribeFormProps) => {
   };
 
   const handleLocationChange = (address: string) => {
-    // Mock geocoding - replace with real API call
     setLocationInput(address);
 
     if (!address) {
@@ -168,10 +167,11 @@ const BribeForm = ({onSuccess}: BribeFormProps) => {
               </div>
 
               {/* Location Input */}
-              <div>
-                <label>Location</label>
+              <div className="bg-gray-800 shadow-lg p-2 rounded-lg">
+                <label className="font-bold text-xl">Location</label>
                 <input
                   type="text"
+                  className="border rounded-lg px-2 py-1 ml-2"
                   value={locationInput}
                   onChange={(e) => handleLocationChange(e.target.value)}
                   placeholder="Enter address"

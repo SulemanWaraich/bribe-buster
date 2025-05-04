@@ -1,4 +1,3 @@
-
 import { BribeReport } from '../types';
 
 export default function Leaderboard({ reports }: { reports: BribeReport[] }) {

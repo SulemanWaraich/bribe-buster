@@ -14,7 +14,7 @@ export interface Location {
 export interface BribeReport {
   department: Department;
   amount: number;
-  location: Location | null; // Made optional
+  location: Location | null; 
   submitted: boolean;
   reportId?: string;
   timestamp?: Date | string; // Flexible date type

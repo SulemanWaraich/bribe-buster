@@ -3,7 +3,7 @@
 > A React-based transparency tool enabling citizens to safely report bribes while visualizing institutional corruption patterns.
 
 ## 🌍 Live Demo  
-[![Netlify](https://app.netlify.com/sites/dainty-travesseiro-31bbf4/deploys/6817acf596ae6de61c1a89e1)  
+👉 [Click here to view the Live App] [https://6817af5f57b29af446d8220a--dainty-travesseiro-31bbf4.netlify.app/) 👈 
 
 ## 📌 The Transparency Crisis
 
@@ -32,7 +32,6 @@
 | **16.6** – Develop effective institutions | Public department rankings | 📊 42% increase in report resolution |
 | **16.10** – Ensure public access to information | Open datasets shared with researchers | 🧩 28 NGOs using our data |
 
-![SDG16]()
 
 ---
 
@@ -46,7 +45,6 @@
 
 > 📍 Pilot data collected in partnership with Lahore Municipal Corporation
 
-![Pilot Results]()
 
 ---
 
@@ -71,8 +69,6 @@ graph TD
   C --> D[Visualization Engine]
   D --> E[Heatmaps / Leaderboards]
 ```
-
-> Alternatively, use the static image: ``
 
 ---
 

@@ -13,7 +13,7 @@ export default function ReportPage() {
       {!generatedReport ? (
         <BribeForm onSuccess={setGeneratedReport} />
       ) : (
-        <div className="space-y-6 flex flex-col justify-center items-center">
+        <div className="space-y-4 flex flex-col justify-center items-center">
           <ReceiptGenerator report={generatedReport} />
           <button
             onClick={() => setGeneratedReport(null)}
